@@ -70,10 +70,10 @@ String userOccupation;
 
 
 	public void setUserAge(int userAge) {
-		if(userAge < 0 && userAge > 120){
+		if(userAge < 0 || userAge > 120){
 			throw new IllegalArgumentException();
 		}
-		else this.userAge = 0;
+		this.userAge = userAge;
 	}
 
 
@@ -86,7 +86,7 @@ String userOccupation;
 
 	public void setUserGender(String userGender) {
 		if(userGender.toUpperCase().trim().charAt(0) == 'F' || userGender.toUpperCase().trim().charAt(0) == 'M'){
-			this.userGender = userGender.charAt(0);
+			this.userGender = userGender.trim().toUpperCase().charAt(0);
 		}
 		else 
 			throw new IllegalArgumentException();

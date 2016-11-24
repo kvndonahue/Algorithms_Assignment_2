@@ -12,21 +12,16 @@ import models.User;
 
 public class Load {
 	
-	private List<User> users = new ArrayList<User>();
-	private List<Movie> movies = new ArrayList<Movie>();
-	private List<Rating> ratings = new ArrayList<Rating>();
+
 	private HashMap<Integer,String> genres = new HashMap<Integer,String>();
 	
 	public Load(){
 		loadGenres();
-		loadUsers();
-		loadRatings();
-		loadMovies();
-		
 	}
 	
-	private List<Rating> loadRatings()
+	public List<Rating> loadRatings()
 	{
+		List<Rating> ratings = new ArrayList<Rating>();
 		File ratingsFile = new File("smallmoviedata/ratings5.dat");
         In inRating = new In(ratingsFile);
           //each field is separated(delimited) by a '|'
@@ -51,8 +46,6 @@ public class Load {
 				}
             }
         }
-        for(Rating rating : ratings)
-        	System.out.println(rating);
         
         return ratings;
 	}
@@ -88,6 +81,7 @@ public class Load {
 	
 	public List<User> loadUsers(){
 		
+		List<User> users = new ArrayList<User>();
 	     File usersFile = new File("smallmoviedata/users5.dat");
 	        In inUsers = new In(usersFile);
 	          //each field is separated(delimited) by a '|'
@@ -113,15 +107,13 @@ public class Load {
 	            }
 	        }
 	        
-	        //Just prints out all our users
-	        for(User user : users)
-	        	System.out.println(user);
 	        
 	        return users;
 	}
 	
 	public List<Movie> loadMovies(){
 		
+		List<Movie> movies = new ArrayList<Movie>();
 	     File movieFile = new File("smallmoviedata/items5.dat");
 	        In inMovies = new In(movieFile);
 	          //each field is separated(delimited) by a '|'
@@ -182,9 +174,6 @@ public class Load {
 	            }
 	        }
 	        
-	        //This can be removed since it just shows all the movies we added
-	        for(Movie movie : movies)
-	        	System.out.println(movie);
 	        
 	        return movies;
 	}

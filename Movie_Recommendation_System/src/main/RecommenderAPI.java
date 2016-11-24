@@ -4,8 +4,27 @@ import java.util.List;
 
 import models.Movie;
 import models.Rating;
+import models.User;
 
 public interface RecommenderAPI {
+	
+	/**
+	 * Returns all users
+	 * @return
+	 */
+	List<User> getUsers();
+	
+	/**
+	 * Returns all movies
+	 * @return
+	 */
+	List<Movie> getMovies();
+	
+	/**
+	 * Returns all ratings
+	 * @return
+	 */
+	List<Rating> getRatings();
 	
 	/**
 	 * Adds a new User
@@ -33,7 +52,7 @@ public interface RecommenderAPI {
 	 * @param url
 	 * @return
 	 */
-	boolean addMovie(String title, String year, String url);
+	boolean addMovie(String title, String year, String url,List<String> genres);
 	
 	/**
 	 * Adds a rating

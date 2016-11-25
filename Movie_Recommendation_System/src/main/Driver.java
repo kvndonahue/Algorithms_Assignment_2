@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,6 +8,8 @@ import java.util.Scanner;
 import models.Movie;
 import models.Rating;
 import models.User;
+import util.Serializer;
+import util.SerializerAPI;
 
 public class Driver {
 
@@ -18,8 +21,9 @@ public class Driver {
 	}
 	
 	public Driver(){
-	
-		recommender = new Recommender();
+		File  datastore = new File("datastore.xml");
+		SerializerAPI serializer = new Serializer(datastore);
+		recommender = new Recommender(serializer,datastore.isFile());
 		input = new Scanner(System.in);
 		runMenu();
 	}
@@ -36,6 +40,7 @@ public class Driver {
 		System.out.println("7) Add a new Rating");
 		System.out.println("8) Get a Movie by ID");
 		System.out.println("9) Get a User's Ratings");
+		System.out.println("10) Get a Top Ten Movies");
 		System.out.println("0) Exit");
 		System.out.print(">> ");
 		
@@ -76,6 +81,9 @@ public class Driver {
 			case 9:
 				getUserRatings();
 				break;
+			case 10:
+				getTopTen();
+				break;
 			default:
 				System.out.println("Error On Input");
 				break;
@@ -85,8 +93,20 @@ public class Driver {
 			choice = showMenu();
 		}
 		
+		try {
+			recommender.write();
+		} catch (Exception e) {
+			System.err.println("Couldn't Write The File");
+			e.printStackTrace();
+		}
 		System.out.println("Exiting ... ");
 		System.exit(0);
+	}
+
+	private void getTopTen() {
+		for(Movie movie : recommender.getTopTenMovies())
+			System.out.println(movie);
+		
 	}
 
 	private void showAllUsers() {

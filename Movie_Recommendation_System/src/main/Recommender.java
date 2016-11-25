@@ -1,33 +1,44 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import models.Movie;
 import models.Rating;
 import models.User;
 import util.Load;
+import util.RatingComparator;
+import util.SerializerAPI;
 
 public class Recommender implements RecommenderAPI{
 
 	private List<User> users;
 	private List<Movie> movies;
 	private List<Rating> ratings;
+	private SerializerAPI serializer;
 	
-	public Recommender()
+	public Recommender(SerializerAPI serializer, boolean hasFile)
 	{
-		Load load = new Load();
-		users = load.loadUsers();
-		movies = load.loadMovies();
-		ratings = load.loadRatings();
-		
-		/*
-		for(User user : users)
-			System.out.println(user);
-		for(Movie movie : movies)
-			System.out.println(movie);
-		for(Rating rating : ratings)
-			System.out.println(rating);
-			*/
+		this.serializer = serializer;
+		if(hasFile)
+		{
+			try
+			{
+				load();
+			}catch(Exception e)
+			{
+				System.err.println("Couldn't load the file items");
+			}
+		}
+		else
+		{
+			Load load = new Load();
+			users = load.loadUsers();
+			movies = load.loadMovies();
+			ratings = load.loadRatings();
+		}
 	}
 	
 	public boolean addUser(String firstName, String lastName, int age, String gender, String occupation) {
@@ -83,17 +94,37 @@ public class Recommender implements RecommenderAPI{
 	}
 
 	public List<Movie> getTopTenMovies() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void load() {
-		// TODO Auto-generated method stub
+		
+		List<Movie> topTen = new ArrayList<Movie>();
+		Collections.sort(ratings,new RatingComparator());
+		
+		for(Rating rating : ratings)
+		{
+			Movie ratingMovie = movies.get(rating.getMovieId()-1);
+			topTen.add(ratingMovie);
+			if(topTen.size() >= 10)
+				break;
+		}
+		return topTen;
 		
 	}
 
-	public void write() {
-		// TODO Auto-generated method stub
+	@SuppressWarnings("unchecked")
+	public void load() throws Exception {
+		//Reads in the stack from XML
+		serializer.read();
+	    users = (List<User>) serializer.pop();
+	    movies      = (List<Movie>)   serializer.pop();
+	    ratings       = (List<Rating>)     serializer.pop();
+		
+	}
+
+	public void write() throws Exception {
+		serializer.push(ratings);
+	    serializer.push(movies);
+	    serializer.push(users);
+	    //Writes the stack to XML
+	    serializer.write(); 
 		
 	}
 

@@ -92,12 +92,14 @@ public interface RecommenderAPI {
 	
 	/**
 	 * Loads XML save file
+	 * @throws Exception 
 	 */
-	void load();
+	void load() throws Exception;
 	
 	/**
 	 * Saves an XML save file
+	 * @throws Exception 
 	 */
-	void write();
+	void write() throws Exception;
 	
 }

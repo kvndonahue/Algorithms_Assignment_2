@@ -128,7 +128,7 @@ public class Load {
 	            // output user data to console.
 	            if (movieTokens.length == 23) {
 	            	
-	            	//Movie specific genres list
+	            	//Movie specific genres list which is going to be passed into the newMovie constructor 
 	            	List<String> genresList = new ArrayList<String>();
 	            	
 	            	

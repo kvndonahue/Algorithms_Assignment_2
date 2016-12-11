@@ -35,9 +35,9 @@ public class Recommender implements RecommenderAPI{
 		else
 		{
 			Load load = new Load();
-			users = load.loadUsers();
-			movies = load.loadMovies();
-			ratings = load.loadRatings();
+			users = load.loadUsers("data/users.dat");
+			movies = load.loadMovies("data/items.dat");
+			ratings = load.loadRatings("data/ratings.dat");
 		}
 	}
 	
@@ -89,8 +89,21 @@ public class Recommender implements RecommenderAPI{
 	}
 
 	public List<Movie> getUserRecommendations(int userID) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Movie> userRec = new ArrayList<Movie>();
+		for(Rating rating : ratings)
+		{
+			if(rating.getRating()>4)
+			{
+				if(rating.getUserId() != userID)
+				{
+					userRec.add(movies.get(rating.getMovieId()+1));
+				}
+			}
+			if(userRec.size() >= 10)
+				break;
+		}
+		return userRec;
 	}
 
 	public List<Movie> getTopTenMovies() {

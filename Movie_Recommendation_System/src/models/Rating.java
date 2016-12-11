@@ -33,6 +33,6 @@ public class Rating {
 
 	@Override
 	public String toString() {
-		return "Rating [userId=" + userId + ", movieId=" + movieId + ", rating=" + rating + "]";
+		return "User ID: " + userId + "		Movie ID: " + movieId + "		Rating: " + rating;
 	}
 }

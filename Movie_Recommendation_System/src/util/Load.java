@@ -19,10 +19,10 @@ public class Load {
 		loadGenres();
 	}
 	
-	public List<Rating> loadRatings()
+	public List<Rating> loadRatings(String file)
 	{
 		List<Rating> ratings = new ArrayList<Rating>();
-		File ratingsFile = new File("smallmoviedata/ratings5.dat");
+		File ratingsFile = new File(file);
         In inRating = new In(ratingsFile);
           //each field is separated(delimited) by a '|'
         String delims = "[|]";
@@ -52,7 +52,7 @@ public class Load {
 	
 	private void loadGenres()
 	{
-		File genresFile = new File("smallmoviedata/genre.dat");
+		File genresFile = new File("data/genre.dat");
         In inGenres = new In(genresFile);
           //each field is separated(delimited) by a '|'
         String delims = "[|]";
@@ -79,10 +79,10 @@ public class Load {
         }
 	}
 	
-	public List<User> loadUsers(){
+	public List<User> loadUsers(String file){
 		
 		List<User> users = new ArrayList<User>();
-	     File usersFile = new File("smallmoviedata/users5.dat");
+	     File usersFile = new File(file);
 	        In inUsers = new In(usersFile);
 	          //each field is separated(delimited) by a '|'
 	        String delims = "[|]";
@@ -111,10 +111,10 @@ public class Load {
 	        return users;
 	}
 	
-	public List<Movie> loadMovies(){
+	public List<Movie> loadMovies(String file){
 		
 		List<Movie> movies = new ArrayList<Movie>();
-	     File movieFile = new File("smallmoviedata/items5.dat");
+	     File movieFile = new File(file);
 	        In inMovies = new In(movieFile);
 	          //each field is separated(delimited) by a '|'
 	        String delims = "[|]";
@@ -158,10 +158,18 @@ public class Load {
 	            	
 	            	
 	            	//Make a new Movie object, with its own Id, title, date, url and genre List
-	            	Movie newMovie = new Movie(Integer.parseInt(movieTokens[0]),movieTokens[1],movieTokens[2],movieTokens[3],genresList);
+	            	Movie newMovie;
+	            	try
+	            	{
+	            		newMovie = new Movie(Integer.parseInt(movieTokens[0]),movieTokens[1],movieTokens[2],movieTokens[3],genresList);
+	            		//Add the new Movie we made to the movies List
+		            	movies.add(newMovie); 
+	            	}catch(IllegalArgumentException e)
+	            	{
+	            		System.out.println("The Movie with ID "+movieTokens[0] + " Could Not Be Loaded Due To Incorrect Data In The File.");
+	            	}
 	                
-	            	//Add the new Movie we made to the movies List
-	            	movies.add(newMovie); 
+	            	
 	                
 	            }else
 	            {

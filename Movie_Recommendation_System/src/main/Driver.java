@@ -30,17 +30,17 @@ public class Driver {
 	
 	public int showMenu()
 	{
-		System.out.println("\nKEVIN'S MOVIE RECOMMENDER PRO\n");
+		System.out.println("\nMOVIE RECOMMENDATION SYSTEM:\n");
 		System.out.println("1) Show all Users");
 		System.out.println("2) Show all Movies");
 		System.out.println("3) Show all Ratings");
 		System.out.println("4) Add a New User");
 		System.out.println("5) Remove a User");
-		System.out.println("6) Add a new Movie");
-		System.out.println("7) Add a new Rating");
+		System.out.println("6) Add a New Movie");
+		System.out.println("7) Add a New Rating");
 		System.out.println("8) Get a Movie by ID");
 		System.out.println("9) Get a User's Ratings");
-		System.out.println("10) Get a Top Ten Movies");
+		System.out.println("10) Get Top Ten Movies");
 		System.out.println("0) Exit");
 		System.out.print(">> ");
 		
@@ -202,7 +202,7 @@ public class Driver {
 		System.out.print("Enter User's ID: ");
 		int userId = input.nextInt();
 		Rating myRating = recommender.getUserRatings(userId);
-		System.out.println("User: "+userId + " Rated :"+myRating);
+		System.out.println("User: "+userId + "		Rated :"+myRating);
 	}
 	
 	

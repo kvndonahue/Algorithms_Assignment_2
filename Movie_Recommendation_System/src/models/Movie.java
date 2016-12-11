@@ -65,11 +65,11 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		String returnString =  "Movie [movieId=" + movieId + ", movieName=" + movieName + ", releaseDate=" + releaseDate + ", URL="
-				+ URL + ", genres=";
+		String returnString =  "ID: " + movieId + "		Title: " + movieName + "\tRelease Date: " + releaseDate + "		URL: "
+				+ URL + "		Genres: ";
 		for(String genre : genres)
 			returnString+= genre + ", ";
-		return returnString+"]";
+		return returnString;
 	}
 	
 	

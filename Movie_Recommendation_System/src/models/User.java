@@ -108,8 +108,7 @@ String userOccupation;
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userSurname=" + userSurname + ", userAge="
-				+ userAge + ", userGender=" + userGender + ", userOccupation=" + userOccupation + "]";
+		return "ID: " + userId + "		Name: " + userName + " " + userSurname + "		Age: " + userAge + "		Gender: " + userGender + "		Occupation: " + userOccupation;
 	}
 	
 	
